@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轨迹记录器</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>轨迹记录器</h1>
+    <div class="badges">
+      <span id="env-badge" class="badge badge-muted">环境检测中…</span>
+      <span id="perm-badge" class="badge badge-muted">权限未知</span>
+      <span id="rec-badge" class="badge badge-muted">未记录</span>
+    </div>
+  </header>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <main class="layout">
+    <section class="panel controls">
+      <h2>控制</h2>
+      <div class="btn-row">
+        <button id="btn-start" class="btn btn-primary" disabled>开始记录</button>
+        <button id="btn-stop" class="btn" disabled>停止</button>
+      </div>
+      <label class="check">
+        <input type="checkbox" id="opt-high-accuracy" checked>
+        高精度模式（GPS，更耗电）
+      </label>
+      <div class="btn-row">
+        <button id="btn-export-gpx" class="btn" disabled>导出 GPX</button>
+        <button id="btn-export-geojson" class="btn" disabled>导出 GeoJSON</button>
+        <button id="btn-clear" class="btn btn-danger">清除轨迹</button>
+      </div>
+      <p id="perm-tip" class="tip" hidden></p>
+    </section>
+
+    <section id="manual-panel" class="panel manual" hidden>
+      <h2>手动记录（降级模式）</h2>
+      <p class="tip">定位不可用，可手动输入坐标追加轨迹点。</p>
+      <div class="manual-grid">
+        <label>纬度 <input id="manual-lat" type="number" step="any" placeholder="39.9042"></label>
+        <label>经度 <input id="manual-lng" type="number" step="any" placeholder="116.4074"></label>
+        <label>精度(米，可选) <input id="manual-acc" type="number" step="any" min="0" placeholder="50"></label>
+        <button id="btn-manual-add" class="btn btn-primary">添加轨迹点</button>
+      </div>
+    </section>
+
+    <section class="panel stats">
+      <h2>实时数据</h2>
+      <div class="stats-grid">
+        <div class="stat"><span class="stat-label">纬度</span><span id="st-lat" class="stat-val">—</span></div>
+        <div class="stat"><span class="stat-label">经度</span><span id="st-lng" class="stat-val">—</span></div>
+        <div class="stat"><span class="stat-label">速度</span><span id="st-speed" class="stat-val">—</span></div>
+        <div class="stat"><span class="stat-label">精度</span><span id="st-acc" class="stat-val">—</span></div>
+        <div class="stat"><span class="stat-label">轨迹点</span><span id="st-count" class="stat-val">0</span></div>
+        <div class="stat"><span class="stat-label">总距离</span><span id="st-dist" class="stat-val">0 m</span></div>
+        <div class="stat"><span class="stat-label">时长</span><span id="st-duration" class="stat-val">00:00</span></div>
+        <div class="stat"><span class="stat-label">平均速度</span><span id="st-avg" class="stat-val">—</span></div>
+      </div>
+    </section>
+
+    <section class="panel map-panel">
+      <h2>轨迹</h2>
+      <canvas id="map"></canvas>
+      <p id="map-empty" class="tip">暂无轨迹数据</p>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
