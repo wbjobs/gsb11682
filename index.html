@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轨迹记录仪</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>轨迹记录仪</h1>
+    <div id="env-badges" class="env-badges"></div>
+  </header>
+
+  <div id="banner" class="banner hidden"></div>
+
+  <main>
+    <section class="panel">
+      <div class="row">
+        <button id="btn-start" class="primary">开始记录</button>
+        <button id="btn-pause" disabled>暂停</button>
+        <button id="btn-stop" disabled>结束</button>
+        <button id="btn-manual-mode">手动记录模式</button>
+        <button id="btn-clear" class="danger">清空轨迹</button>
+      </div>
+      <div class="row">
+        <button id="btn-export-gpx" disabled>导出 GPX</button>
+        <button id="btn-export-geojson" disabled>导出 GeoJSON</button>
+      </div>
+      <div id="perm-status" class="perm-status"></div>
+    </section>
+
+    <section class="panel stats">
+      <div class="stat"><span class="label">状态</span><span id="st-state">空闲</span></div>
+      <div class="stat"><span class="label">轨迹点</span><span id="st-count">0</span></div>
+      <div class="stat"><span class="label">总距离</span><span id="st-dist">0 m</span></div>
+      <div class="stat"><span class="label">时长</span><span id="st-duration">00:00:00</span></div>
+      <div class="stat"><span class="label">当前速度</span><span id="st-speed">--</span></div>
+      <div class="stat"><span class="label">平均速度</span><span id="st-avg">--</span></div>
+      <div class="stat"><span class="label">定位精度</span><span id="st-acc">--</span></div>
+      <div class="stat"><span class="label">当前位置</span><span id="st-pos">--</span></div>
+    </section>
+
+    <section class="panel manual hidden" id="manual-panel">
+      <h2>手动记录（降级模式）</h2>
+      <p class="hint">定位不可用时的替代方案：手动输入坐标，与自动记录共用同一条轨迹（入库、绘图、统计、导出完全一致）。</p>
+      <div class="row">
+        <label>纬度 <input id="m-lat" type="number" step="any" placeholder="39.9087"></label>
+        <label>经度 <input id="m-lon" type="number" step="any" placeholder="116.3975"></label>
+        <label>精度(m) <input id="m-acc" type="number" step="any" min="0" placeholder="可选"></label>
+        <button id="btn-add-manual" class="primary">添加轨迹点</button>
+      </div>
+      <p class="hint">也可以<button id="btn-fill-demo" class="link">填入示例坐标</button>快速体验，每次点击沿示例路线前进一步。</p>
+    </section>
+
+    <section class="panel canvas-wrap">
+      <canvas id="track-canvas"></canvas>
+      <div id="canvas-empty" class="canvas-empty">暂无轨迹数据</div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
